@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PageControlFrament">
+
+    <EditText
+        android:id="@+id/URL_BAR"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:ems="10"
+        android:inputType="textUri"
+        android:text="Enter URL" />
+
+    <ImageButton
+        android:id="@+id/Go_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_directions" />
+
+    <ImageButton
+        android:id="@+id/Back_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@android:drawable/ic_media_rew" />
+
+    <ImageButton
+        android:id="@+id/Forward_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@android:drawable/ic_media_ff" />
+</LinearLayout>
