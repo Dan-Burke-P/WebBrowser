@@ -61,6 +61,20 @@ public class PageControlFrament extends Fragment {
             }
         });
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pageViewerFragment.goBack();
+            }
+        });
+
+        forwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pageViewerFragment.goForward();
+            }
+        });
+
         return view;
     }
 }
