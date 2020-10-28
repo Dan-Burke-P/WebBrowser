@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import java.net.MalformedURLException;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link PageControlFrament#newInstance} factory method to
@@ -57,7 +59,11 @@ public class PageControlFrament extends Fragment {
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pageViewerFragment.loadPage(url_bar.getText().toString());
+                try {
+                    pageViewerFragment.loadPage(url_bar.getText().toString());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

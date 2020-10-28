@@ -9,8 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.URLUtil;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import java.net.MalformedURLException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,9 +56,19 @@ public class PageViewerFragment extends Fragment {
         return view;
     }
 
-    public void loadPage(String s){
+    public void loadPage(String s) throws MalformedURLException {
+
+        if(s.length() < 8){
+            s = "https://" + s;
+        }
+
+        String t = s.substring(0, 8);
+        if(!t.equals("https://")){
+            s = "https://" + s;
+        }
+
+        Log.println(Log.ASSERT, "PageViewerFragment",t);
         webView.loadUrl(s);
-        Log.println(Log.ASSERT, "PageViewerFragment",s);
     }
     public void goBack(){
         webView.goBack();
