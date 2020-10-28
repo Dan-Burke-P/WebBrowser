@@ -4,9 +4,11 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +17,9 @@ import android.view.ViewGroup;
  */
 public class PageViewerFragment extends Fragment {
 
+
+    private View view;
+    private WebView webView;
 
     public PageViewerFragment() {
         // Required empty public constructor
@@ -37,6 +42,19 @@ public class PageViewerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_page_viewer, container, false);
+        view = inflater.inflate(R.layout.fragment_page_viewer, container, false);
+        webView = view.findViewById(R.id.WebView);
+        return view;
+    }
+
+    public void loadPage(String s){
+        webView.loadUrl(s);
+        Log.println(Log.ASSERT, "PageViewerFragment",s);
+    }
+    public void goBack(){
+        webView.goBack();
+    }
+    public void goForward(){
+        webView.goForward();
     }
 }
