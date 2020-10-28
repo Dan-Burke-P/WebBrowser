@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,15 +17,20 @@ import android.view.ViewGroup;
  */
 public class PageControlFrament extends Fragment {
 
-
-    public PageControlFrament() {
+    private PageViewerFragment pageViewerFragment;
+    private View view;
+    private ImageButton goButton, backButton, forwardButton;
+    private EditText url_bar;
+    public PageControlFrament(PageViewerFragment _pageViewerFragment) {
         // Required empty public constructor
+        this.pageViewerFragment = _pageViewerFragment;
     }
 
 
     // TODO: Rename and change types and number of parameters
-    public static PageControlFrament newInstance() {
-        PageControlFrament fragment = new PageControlFrament();
+    public static PageControlFrament newInstance(PageViewerFragment _pageViewerFragment) {
+        PageControlFrament fragment = new PageControlFrament(_pageViewerFragment);
+
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -38,6 +45,11 @@ public class PageControlFrament extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_page_control_frament, container, false);
+        view =inflater.inflate(R.layout.fragment_page_control_frament, container, false);
+        goButton = view.findViewById(R.id.Go_Button);
+        backButton = view.findViewById(R.id.Back_Button);
+        forwardButton = view.findViewById(R.id.Forward_Button);
+        url_bar = view.findViewById(R.id.URL_BAR);
+        return view;
     }
 }
