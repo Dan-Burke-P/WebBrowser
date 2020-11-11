@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,25 +14,25 @@ import java.net.MalformedURLException;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PageControlFrament#newInstance} factory method to
+ * Use the {@link PageControlFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PageControlFrament extends Fragment {
+public class PageControlFragment extends Fragment {
 
     private PageViewerFragment pageViewerFragment;
     private View view;
     private ImageButton goButton, backButton, forwardButton;
     private EditText url_bar;
 
-    public PageControlFrament(PageViewerFragment _pageViewerFragment) {
+    public PageControlFragment(PageViewerFragment _pageViewerFragment) {
         // Required empty public constructor
         this.pageViewerFragment = _pageViewerFragment;
     }
 
 
     // TODO: Rename and change types and number of parameters
-    public static PageControlFrament newInstance(PageViewerFragment _pageViewerFragment) {
-        PageControlFrament fragment = new PageControlFrament(_pageViewerFragment);
+    public static PageControlFragment newInstance(PageViewerFragment _pageViewerFragment) {
+        PageControlFragment fragment = new PageControlFragment(_pageViewerFragment);
 
         Bundle args = new Bundle();
         fragment.setArguments(args);

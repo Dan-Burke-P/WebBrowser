@@ -4,7 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PageViewerFragment">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Page Viewer Fragment" />
     <WebView
         android:id="@+id/WebView"
         android:layout_width="match_parent"
