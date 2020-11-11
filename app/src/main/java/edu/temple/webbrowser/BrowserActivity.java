@@ -23,16 +23,19 @@ public class BrowserActivity extends AppCompatActivity {
         PagerFragment pagerFragment;
         PageViewerFragment pageViewerFragment;
 
+        PagerFragmentInterface pagerFragmentInterface = new PagerFragmentInterface();
+
         if(savedInstanceState == null){
             // If we have no saved instance Create new instances of all the fragments
-            browserControlFragment = BrowserControlFragment.newInstance();
+            browserControlFragment = BrowserControlFragment.newInstance(pagerFragmentInterface);
 
             pageViewerFragment = PageViewerFragment.newInstance();
             pageControlFragment = PageControlFragment.newInstance(pageViewerFragment);
 
-            pagerFragment = PagerFragment.newInstance();
+            pagerFragment = PagerFragment.newInstance(getSupportFragmentManager());
             pageListFragment = PageListFragment.newInstance();
 
+            pagerFragmentInterface.setPagerFragment(pagerFragment);
 
             // Retain all the instances
             pageViewerFragment.setRetainInstance(true);

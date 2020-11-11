@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ public class PagerFragment extends Fragment {
     FragmentManager fragmentManager;
     View view;
     ViewPager vp;
-    FragmentStatePagerAdapter fragmentStatePagerAdapter;
+    BrowserViewPagerAdapter browserViewPagerAdapter;
     PageViewerFragment pageViewerFragment;
     public PagerFragment() {
         // Required empty public constructor
@@ -51,9 +52,16 @@ public class PagerFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_pager, container, false);
         vp = view.findViewById(R.id.view_pager);
-        fragmentStatePagerAdapter = new BrowserViewPagerAdapter(fragmentManager);
+        browserViewPagerAdapter = new BrowserViewPagerAdapter(fragmentManager);
 
-        vp.setAdapter(fragmentStatePagerAdapter);
+        vp.setAdapter(browserViewPagerAdapter);
         return view;
+    }
+
+    public void addPage(){
+        Log.println(Log.ASSERT, "PagerFragment", "Adding page");
+        PageViewerFragment pageViewerFragment = PageViewerFragment.newInstance();
+        browserViewPagerAdapter.addPage(pageViewerFragment);
+        browserViewPagerAdapter.notifyDataSetChanged();
     }
 }

@@ -26,4 +26,9 @@ public class BrowserViewPagerAdapter  extends FragmentStatePagerAdapter {
     public int getCount() {
         return contents.size();
     }
+
+    public void addPage(PageViewerFragment pageViewerFragment){
+        contents.add(pageViewerFragment);
+
+    }
 }
