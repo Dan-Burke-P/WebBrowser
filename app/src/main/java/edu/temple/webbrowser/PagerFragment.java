@@ -2,7 +2,10 @@ package edu.temple.webbrowser;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
@@ -16,18 +19,24 @@ import android.view.ViewGroup;
  */
 public class PagerFragment extends Fragment {
 
+    FragmentManager fragmentManager;
+    View view;
     ViewPager vp;
-    
+    FragmentStatePagerAdapter fragmentStatePagerAdapter;
+    PageViewerFragment pageViewerFragment;
     public PagerFragment() {
         // Required empty public constructor
     }
 
+    public void setFragmentManager(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
+    }
 
     // TODO: Rename and change types and number of parameters
-    public static PagerFragment newInstance() {
+    public static PagerFragment newInstance(FragmentManager fm) {
         PagerFragment fragment = new PagerFragment();
         Bundle args = new Bundle();
-        fragment.setArguments(args);
+        fragment.setFragmentManager(fm);
         return fragment;
     }
 
@@ -40,6 +49,11 @@ public class PagerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pager, container, false);
+        view = inflater.inflate(R.layout.fragment_pager, container, false);
+        vp = view.findViewById(R.id.view_pager);
+        fragmentStatePagerAdapter = new BrowserViewPagerAdapter(fragmentManager);
+
+        vp.setAdapter(fragmentStatePagerAdapter);
+        return view;
     }
 }
