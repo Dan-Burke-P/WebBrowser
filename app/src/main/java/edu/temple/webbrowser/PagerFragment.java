@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.net.MalformedURLException;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link PagerFragment#newInstance} factory method to
@@ -63,5 +65,24 @@ public class PagerFragment extends Fragment {
         PageViewerFragment pageViewerFragment = PageViewerFragment.newInstance();
         browserViewPagerAdapter.addPage(pageViewerFragment);
         browserViewPagerAdapter.notifyDataSetChanged();
+    }
+
+    public void navigate(String s){
+        int item = vp.getCurrentItem();
+        try {
+            browserViewPagerAdapter.getItem(item).loadPage(s);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void goBack(){
+        int item = vp.getCurrentItem();
+        browserViewPagerAdapter.getItem(item).goBack();
+    }
+
+    public void goForward(){
+        int item = vp.getCurrentItem();
+        browserViewPagerAdapter.getItem(item).goForward();
     }
 }

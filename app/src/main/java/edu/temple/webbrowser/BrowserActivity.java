@@ -30,7 +30,7 @@ public class BrowserActivity extends AppCompatActivity {
             browserControlFragment = BrowserControlFragment.newInstance(pagerFragmentInterface);
 
             pageViewerFragment = PageViewerFragment.newInstance();
-            pageControlFragment = PageControlFragment.newInstance(pageViewerFragment);
+            pageControlFragment = PageControlFragment.newInstance(pagerFragmentInterface);
 
             pagerFragment = PagerFragment.newInstance(getSupportFragmentManager());
             pageListFragment = PageListFragment.newInstance();

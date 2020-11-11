@@ -19,26 +19,32 @@ import java.net.MalformedURLException;
  */
 public class PageControlFragment extends Fragment {
 
+    PagerFragmentInterface pagerFragmentInterface;
     private PageViewerFragment pageViewerFragment;
     private View view;
     private ImageButton goButton, backButton, forwardButton;
     private EditText url_bar;
 
-    public PageControlFragment(PageViewerFragment _pageViewerFragment) {
+    public PageControlFragment() {
         // Required empty public constructor
-        this.pageViewerFragment = _pageViewerFragment;
     }
 
 
     // TODO: Rename and change types and number of parameters
-    public static PageControlFragment newInstance(PageViewerFragment _pageViewerFragment) {
-        PageControlFragment fragment = new PageControlFragment(_pageViewerFragment);
+    public static PageControlFragment newInstance(PagerFragmentInterface pagerFragmentInterface) {
+        PageControlFragment fragment = new PageControlFragment();
 
         Bundle args = new Bundle();
         fragment.setArguments(args);
+
+        fragment.setPagerFragmentInterface(pagerFragmentInterface);
+
         return fragment;
     }
 
+    public void setPagerFragmentInterface(PagerFragmentInterface pagerFragmentInterface){
+        this.pagerFragmentInterface = pagerFragmentInterface;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,25 +64,21 @@ public class PageControlFragment extends Fragment {
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    pageViewerFragment.loadPage(url_bar.getText().toString());
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
+                pagerFragmentInterface.navigate(url_bar.getText().toString());
             }
         });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pageViewerFragment.goBack();
+                pagerFragmentInterface.goBack();
             }
         });
 
         forwardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pageViewerFragment.goForward();
+                pagerFragmentInterface.goForward();
             }
         });
 
