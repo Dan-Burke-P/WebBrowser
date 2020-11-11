@@ -1,4 +1,4 @@
-package edu.temple.webbrowser;
+package edu.temple.webbrowser.ActivityFragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -9,11 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.URLUtil;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import java.net.MalformedURLException;
+
+import edu.temple.webbrowser.R;
 
 /**
  * A simple {@link Fragment} subclass.

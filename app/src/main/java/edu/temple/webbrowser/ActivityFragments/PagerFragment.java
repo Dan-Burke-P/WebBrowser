@@ -1,11 +1,9 @@
-package edu.temple.webbrowser;
+package edu.temple.webbrowser.ActivityFragments;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
@@ -14,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.net.MalformedURLException;
+
+import edu.temple.webbrowser.BrowserViewPagerAdapter;
+import edu.temple.webbrowser.R;
 
 /**
  * A simple {@link Fragment} subclass.

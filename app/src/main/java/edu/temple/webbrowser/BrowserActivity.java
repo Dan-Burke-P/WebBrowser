@@ -6,6 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import edu.temple.webbrowser.ActivityFragments.BrowserControlFragment;
+import edu.temple.webbrowser.ActivityFragments.PageControlFragment;
+import edu.temple.webbrowser.ActivityFragments.PageListFragment;
+import edu.temple.webbrowser.ActivityFragments.PageViewerFragment;
+import edu.temple.webbrowser.ActivityFragments.PagerFragment;
+import edu.temple.webbrowser.FragmentInterfaces.PagerFragmentInterface;
+
 public class BrowserActivity extends AppCompatActivity {
 
 

@@ -1,4 +1,4 @@
-package edu.temple.webbrowser;
+package edu.temple.webbrowser.ActivityFragments;
 
 import android.os.Bundle;
 
@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import java.net.MalformedURLException;
+import edu.temple.webbrowser.FragmentInterfaces.PagerFragmentInterface;
+import edu.temple.webbrowser.R;
 
 /**
  * A simple {@link Fragment} subclass.

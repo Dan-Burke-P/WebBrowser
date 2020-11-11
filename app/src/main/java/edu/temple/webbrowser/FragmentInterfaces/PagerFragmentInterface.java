@@ -1,4 +1,6 @@
-package edu.temple.webbrowser;
+package edu.temple.webbrowser.FragmentInterfaces;
+
+import edu.temple.webbrowser.ActivityFragments.PagerFragment;
 
 public class PagerFragmentInterface {
 

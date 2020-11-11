@@ -1,13 +1,12 @@
 package edu.temple.webbrowser;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import edu.temple.webbrowser.ActivityFragments.PageViewerFragment;
 
 public class BrowserViewPagerAdapter  extends FragmentStatePagerAdapter {
     public BrowserViewPagerAdapter(@NonNull FragmentManager fm) {
