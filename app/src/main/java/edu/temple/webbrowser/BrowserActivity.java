@@ -11,6 +11,8 @@ import edu.temple.webbrowser.ActivityFragments.PageControlFragment;
 import edu.temple.webbrowser.ActivityFragments.PageListFragment;
 import edu.temple.webbrowser.ActivityFragments.PageViewerFragment;
 import edu.temple.webbrowser.ActivityFragments.PagerFragment;
+import edu.temple.webbrowser.FragmentInterfaces.BrowserControlFragmentInterface;
+import edu.temple.webbrowser.FragmentInterfaces.PageControlFragmentInterface;
 import edu.temple.webbrowser.FragmentInterfaces.PagerFragmentInterface;
 
 public class BrowserActivity extends AppCompatActivity {
@@ -28,31 +30,47 @@ public class BrowserActivity extends AppCompatActivity {
         PageControlFragment pageControlFragment;
         PageListFragment pageListFragment;
         PagerFragment pagerFragment;
-        PageViewerFragment pageViewerFragment;
 
         PagerFragmentInterface pagerFragmentInterface = new PagerFragmentInterface();
+        PageControlFragmentInterface pageControlFragmentInterface = new PageControlFragmentInterface();
+        BrowserControlFragmentInterface browserControlFragmentInterface = new BrowserControlFragmentInterface();
+
+        BrowserViewPagerAdapter browserViewPagerAdapter = new BrowserViewPagerAdapter(
+                getSupportFragmentManager());
+        BrowserViewListAdapter browserViewListAdapter = new BrowserViewListAdapter(this,
+                pagerFragmentInterface,
+                browserControlFragmentInterface);
 
         if(savedInstanceState == null){
             // If we have no saved instance Create new instances of all the fragments
-            browserControlFragment = BrowserControlFragment.newInstance(pagerFragmentInterface);
+            browserControlFragment = BrowserControlFragment.newInstance(
+                    pagerFragmentInterface,
+                    pageControlFragmentInterface,
+                    browserViewPagerAdapter,
+                    browserViewListAdapter);
 
-            pageViewerFragment = PageViewerFragment.newInstance();
-            pageControlFragment = PageControlFragment.newInstance(pagerFragmentInterface);
+            pageControlFragment = PageControlFragment.newInstance(pagerFragmentInterface,
+                    browserControlFragmentInterface);
 
-            pagerFragment = PagerFragment.newInstance(getSupportFragmentManager());
-            pageListFragment = PageListFragment.newInstance();
+            pagerFragment = PagerFragment.newInstance(getSupportFragmentManager(),
+                    browserViewPagerAdapter,
+                    pageControlFragmentInterface);
 
+            pageListFragment = PageListFragment.newInstance(browserViewListAdapter);
+
+            // Set interface references
             pagerFragmentInterface.setPagerFragment(pagerFragment);
+            pageControlFragmentInterface.setPageControlFragment(pageControlFragment);
+            browserControlFragmentInterface.setBrowserControlFragment(browserControlFragment);
 
             // Retain all the instances
-            pageViewerFragment.setRetainInstance(true);
             pageControlFragment.setRetainInstance(true);
             pagerFragment.setRetainInstance(true);
             pageListFragment.setRetainInstance(true);
             browserControlFragment.setRetainInstance(true);
 
             // Add all the fragments to the fragment manager
-            getSupportFragmentManager().beginTransaction().add(pageViewerFragment, "page_viewer_fragment")
+            getSupportFragmentManager().beginTransaction()
                     .add(pageControlFragment, "page_control_fragment")
                     .add(pagerFragment, "pager_fragment")
                     .add(pageListFragment, "page_list_fragment")
@@ -62,8 +80,6 @@ public class BrowserActivity extends AppCompatActivity {
 
         }else{
             // We are loading a saved state
-            pageViewerFragment = (PageViewerFragment) getSupportFragmentManager().
-                    findFragmentByTag("page_viewer_fragment");
 
             pageControlFragment = (PageControlFragment) getSupportFragmentManager().
                     findFragmentByTag("page_control_fragment");
@@ -85,7 +101,6 @@ public class BrowserActivity extends AppCompatActivity {
 
             // Null check
             assert pageControlFragment != null;
-            assert pageViewerFragment != null;
             assert pagerFragment != null;
             assert browserControlFragment != null;
 
@@ -100,16 +115,15 @@ public class BrowserActivity extends AppCompatActivity {
             Log.println(Log.ASSERT, "PORT TEST", "Landscape Mode");
             // Null check
             assert pageControlFragment != null;
-            assert pageViewerFragment != null;
             assert pagerFragment != null;
             assert browserControlFragment != null;
             assert pageListFragment != null;
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.Page_control_container, pageControlFragment)
-                    .replace(R.id.Page_render_container, pageViewerFragment)
-                    .replace(R.id.Browser_control_container, browserControlFragment)
                     .replace(R.id.page_list_container, pageListFragment)
+                    .replace(R.id.Browser_control_container, browserControlFragment)
+                    .replace(R.id.Page_render_container, pagerFragment)
                     .commit();
         }
 

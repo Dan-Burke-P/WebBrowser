@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import java.net.MalformedURLException;
+
+import edu.temple.webbrowser.FragmentInterfaces.BrowserControlFragmentInterface;
 import edu.temple.webbrowser.FragmentInterfaces.PagerFragmentInterface;
 import edu.temple.webbrowser.R;
 
@@ -25,22 +28,28 @@ public class PageControlFragment extends Fragment {
     private View view;
     private ImageButton goButton, backButton, forwardButton;
     private EditText url_bar;
-
+    BrowserControlFragmentInterface browserControlFragmentInterface;
     public PageControlFragment() {
         // Required empty public constructor
     }
 
 
     // TODO: Rename and change types and number of parameters
-    public static PageControlFragment newInstance(PagerFragmentInterface pagerFragmentInterface) {
+    public static PageControlFragment newInstance(PagerFragmentInterface pagerFragmentInterface,
+                                                  BrowserControlFragmentInterface browserControlFragmentInterface) {
         PageControlFragment fragment = new PageControlFragment();
 
         Bundle args = new Bundle();
         fragment.setArguments(args);
 
         fragment.setPagerFragmentInterface(pagerFragmentInterface);
+        fragment.setBrowserControlFragmentInterface(browserControlFragmentInterface);
 
         return fragment;
+    }
+
+    public void setBrowserControlFragmentInterface(BrowserControlFragmentInterface browserControlFragmentInterface){
+        this.browserControlFragmentInterface = browserControlFragmentInterface;
     }
 
     public void setPagerFragmentInterface(PagerFragmentInterface pagerFragmentInterface){
@@ -65,24 +74,43 @@ public class PageControlFragment extends Fragment {
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pagerFragmentInterface.navigate(url_bar.getText().toString());
+                try {
+                    pageViewerFragment.loadPage(url_bar.getText().toString());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                url_bar.setText(pageViewerFragment.getUrl());
+                browserControlFragmentInterface.notifyDataSetUpdate();
             }
         });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pagerFragmentInterface.goBack();
+                pageViewerFragment.goBack();
             }
         });
 
         forwardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pagerFragmentInterface.goForward();
+                pageViewerFragment.goForward();
             }
         });
 
         return view;
+    }
+
+    public void setActivePage(PageViewerFragment pageViewerFragment){
+        if(this.pageViewerFragment != null){
+            this.pageViewerFragment.isActive = false;
+        }
+        this.pageViewerFragment = pageViewerFragment;
+        url_bar.setText(pageViewerFragment.getUrl());
+        pageViewerFragment.isActive = true;
+    }
+
+    public void updateLink(){
+        url_bar.setText(pageViewerFragment.getUrl());
     }
 }

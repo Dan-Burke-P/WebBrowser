@@ -28,6 +28,12 @@ public class BrowserViewPagerAdapter  extends FragmentStatePagerAdapter {
 
     public void addPage(PageViewerFragment pageViewerFragment){
         contents.add(pageViewerFragment);
-
     }
+
+    public void setData(ArrayList<PageViewerFragment> pageViewerFragments){
+        this.contents = pageViewerFragments;
+        this.notifyDataSetChanged();
+    }
+
+
 }

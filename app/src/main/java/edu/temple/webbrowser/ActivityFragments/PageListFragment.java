@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import edu.temple.webbrowser.BrowserViewListAdapter;
 import edu.temple.webbrowser.R;
 
 /**
@@ -16,22 +18,22 @@ import edu.temple.webbrowser.R;
  * create an instance of this fragment.
  */
 public class PageListFragment extends Fragment {
+    View view;
+    ListView listView;
+    BrowserViewListAdapter browserViewListAdapter;
 
     public PageListFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment PageListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PageListFragment newInstance() {
+    public static PageListFragment newInstance(BrowserViewListAdapter browserViewListAdapter) {
         PageListFragment fragment = new PageListFragment();
-        Bundle args = new Bundle();
+        fragment.setBrowserViewListAdapter(browserViewListAdapter);
         return fragment;
+    }
+
+    public void setBrowserViewListAdapter(BrowserViewListAdapter browserViewListAdapter){
+        this.browserViewListAdapter = browserViewListAdapter;
     }
 
     @Override
@@ -43,6 +45,9 @@ public class PageListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_page_list, container, false);
+        view = inflater.inflate(R.layout.fragment_page_list, container, false);
+        listView = view.findViewById(R.id.ListView);
+        listView.setAdapter(browserViewListAdapter);
+        return view;
     }
 }

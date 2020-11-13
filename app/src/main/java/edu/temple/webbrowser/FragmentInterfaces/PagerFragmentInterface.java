@@ -10,19 +10,8 @@ public class PagerFragmentInterface {
         this.pagerFragment = pagerFragment;
     }
 
-    public void addPage(){
-        pagerFragment.addPage();
+    public void setActivePage(int i){
+        pagerFragment.setActivePage(i);
     }
 
-    public void navigate(String s){
-        pagerFragment.navigate(s);
-    }
-
-    public void goBack(){
-        pagerFragment.goBack();
-    }
-
-    public void goForward(){
-        pagerFragment.goForward();
-    }
 }

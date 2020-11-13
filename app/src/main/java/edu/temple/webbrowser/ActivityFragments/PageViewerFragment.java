@@ -11,9 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import java.net.MalformedURLException;
 
+import edu.temple.webbrowser.BrowserActivity;
+import edu.temple.webbrowser.FragmentInterfaces.BrowserControlFragmentInterface;
 import edu.temple.webbrowser.R;
 
 /**
@@ -26,17 +29,22 @@ public class PageViewerFragment extends Fragment {
 
     private View view;
     private WebView webView;
-
+    private String url = "New Page";
+    public boolean isActive = false;
+    BrowserControlFragment browserControlFragment;
     public PageViewerFragment() {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
-    public static PageViewerFragment newInstance() {
+    public static PageViewerFragment newInstance(BrowserControlFragment browserControlFragment)
+    {
         PageViewerFragment fragment = new PageViewerFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
+        fragment.setBrowserControlFragment(browserControlFragment);
         return fragment;
+    }
+
+    public void setBrowserControlFragment(BrowserControlFragment browserControlFragment){
+        this.browserControlFragment = browserControlFragment;
     }
 
     @Override
@@ -51,7 +59,14 @@ public class PageViewerFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_page_viewer, container, false);
         webView = view.findViewById(R.id.WebView);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageFinished(WebView view, String url){
+                Toast.makeText(getContext(),"Page Loading Finish." + webView.getUrl(),Toast.LENGTH_SHORT).show();
+                browserControlFragment.updateLink(webView.getUrl());
+                setUrl(webView.getUrl());
+            }
+        });
         webView.getSettings().setJavaScriptEnabled(true);
 
         return view;
@@ -70,11 +85,20 @@ public class PageViewerFragment extends Fragment {
 
         Log.println(Log.ASSERT, "PageViewerFragment",t);
         webView.loadUrl(s);
+        url = s;
     }
     public void goBack(){
         webView.goBack();
     }
     public void goForward(){
         webView.goForward();
+    }
+
+    public String getUrl(){
+        return this.url;
+    }
+
+    private void setUrl(String s){
+        url = s;
     }
 }
