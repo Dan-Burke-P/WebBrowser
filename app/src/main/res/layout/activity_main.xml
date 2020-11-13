@@ -9,6 +9,16 @@
 
 
     <FrameLayout
+        android:id="@+id/page_list_container"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="-1dp"
+        android:layout_marginBottom="-1dp"
+        android:visibility="invisible">
+    </FrameLayout>
+
+    <FrameLayout
         android:id="@+id/Page_render_container"
         android:layout_width="match_parent"
         android:layout_height="560dp"
@@ -36,7 +46,5 @@
         android:layout_height="72dp"
         android:layout_below="@+id/Browser_control_container"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp">
-
-    </FrameLayout>
+        android:layout_marginTop="0dp"/>
 </RelativeLayout>

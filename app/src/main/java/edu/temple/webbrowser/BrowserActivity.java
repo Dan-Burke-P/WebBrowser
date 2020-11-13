@@ -47,7 +47,8 @@ public class BrowserActivity extends AppCompatActivity {
                     pagerFragmentInterface,
                     pageControlFragmentInterface,
                     browserViewPagerAdapter,
-                    browserViewListAdapter);
+                    browserViewListAdapter,
+                    getSupportFragmentManager());
 
             pageControlFragment = PageControlFragment.newInstance(pagerFragmentInterface,
                     browserControlFragmentInterface);
@@ -114,6 +115,7 @@ public class BrowserActivity extends AppCompatActivity {
             // If we find the lsm we are in landscape
             Log.println(Log.ASSERT, "PORT TEST", "Landscape Mode");
             // Null check
+
             assert pageControlFragment != null;
             assert pagerFragment != null;
             assert browserControlFragment != null;

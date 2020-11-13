@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +33,8 @@ public class BrowserControlFragment extends Fragment {
     BrowserViewPagerAdapter browserViewPagerAdapter;
     BrowserViewListAdapter browserViewListAdapter;
 
+    FragmentManager fragmentManager;
+
     View view;
     ImageButton newPageButton;
     ArrayList<PageViewerFragment> openPages = new ArrayList<PageViewerFragment>();
@@ -43,7 +46,8 @@ public class BrowserControlFragment extends Fragment {
     public static BrowserControlFragment newInstance(PagerFragmentInterface pagerFragmentInterface,
                                                      PageControlFragmentInterface pageControlFragmentInterface,
                                                      BrowserViewPagerAdapter browserViewPagerAdapter,
-                                                     BrowserViewListAdapter browserViewListAdapter) {
+                                                     BrowserViewListAdapter browserViewListAdapter,
+                                                     FragmentManager fragmentManager) {
         BrowserControlFragment fragment = new BrowserControlFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -52,8 +56,13 @@ public class BrowserControlFragment extends Fragment {
         fragment.setPagerFragmentInterface(pagerFragmentInterface);
         fragment.setPageControlFragmentInterface(pageControlFragmentInterface);
         fragment.setBrowserViewListAdapter(browserViewListAdapter);
+        fragment.setFragmentManager(fragmentManager);
 
         return fragment;
+    }
+
+    public void setFragmentManager(FragmentManager fragmentManager){
+        this.fragmentManager = fragmentManager;
     }
 
     public void setBrowserViewListAdapter(BrowserViewListAdapter browserViewListAdapter){
