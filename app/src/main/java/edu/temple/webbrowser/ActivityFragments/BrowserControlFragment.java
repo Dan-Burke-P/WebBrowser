@@ -33,11 +33,18 @@ public class BrowserControlFragment extends Fragment {
     BrowserViewPagerAdapter browserViewPagerAdapter;
     BrowserViewListAdapter browserViewListAdapter;
 
+    public PagerFragment pagerFragment;
+
     FragmentManager fragmentManager;
 
     View view;
     ImageButton newPageButton;
+    ImageButton showBookmarks;
+    ImageButton addBookmark;
+
     ArrayList<PageViewerFragment> openPages = new ArrayList<PageViewerFragment>();
+
+    ArrayList<String> bookmarks = new ArrayList<>();
 
     public BrowserControlFragment() {
         // Required empty public constructor
@@ -115,6 +122,19 @@ public class BrowserControlFragment extends Fragment {
 
             }
         });
+
+        showBookmarks = view.findViewById(R.id.show_bookmark_button);
+        showBookmarks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bookMarkDisplayFragment bmdf = bookMarkDisplayFragment.newInstance(fragmentManager);
+                bmdf.pagerFragment = pagerFragment;
+                fragmentManager.beginTransaction().replace(R.id.bookmark_display, bmdf).commit();
+                pagerFragmentInterface.show_bookmark();
+                Log.println(Log.ASSERT, "open bookmarks", "Opening bookmarks");
+            }
+        });
+
         return view;
     }
 

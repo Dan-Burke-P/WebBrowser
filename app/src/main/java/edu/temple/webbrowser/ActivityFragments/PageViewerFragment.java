@@ -68,7 +68,7 @@ public class PageViewerFragment extends Fragment {
             }
         });
         webView.getSettings().setJavaScriptEnabled(true);
-
+        webView.loadUrl(url);
         return view;
     }
 

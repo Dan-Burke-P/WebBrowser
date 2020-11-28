@@ -1,6 +1,9 @@
 package edu.temple.webbrowser.FragmentInterfaces;
 
+import android.view.View;
+
 import edu.temple.webbrowser.ActivityFragments.PagerFragment;
+import edu.temple.webbrowser.R;
 
 public class PagerFragmentInterface {
 
@@ -12,6 +15,10 @@ public class PagerFragmentInterface {
 
     public void setActivePage(int i){
         pagerFragment.setActivePage(i);
+    }
+
+    public void show_bookmark(){
+        pagerFragment.show_bookmark();
     }
 
 }
