@@ -1,13 +1,18 @@
 package edu.temple.webbrowser;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import java.util.ArrayList;
 
@@ -21,11 +26,13 @@ public class BookmarkViewAdapter extends BaseAdapter {
     ArrayList<String> contents;
     LayoutInflater layoutInflater;
     BrowserControlFragment browserControlFragment;
+    Context context;
 
     public BookmarkViewAdapter(Context context,
                                ArrayList<String> contents,
                                BrowserControlFragment browserControlFragment){
         layoutInflater = LayoutInflater.from(context);
+        this.context = context;
         this.contents = contents;
         this.browserControlFragment = browserControlFragment;
     }
@@ -57,6 +64,26 @@ public class BookmarkViewAdapter extends BaseAdapter {
                 Log.println(Log.ASSERT, "Display", "Displaying URL: " + urlStr);
                 browserControlFragment.openBookmark(urlStr);
                 browserControlFragment.showRender();
+            }
+        });
+
+        Button deleteButton = convertView.findViewById(R.id.delete_bookmark);
+
+        final BookmarkViewAdapter bookmarkViewAdapter = this;
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(context)
+                        .setTitle("Title")
+                        .setMessage("Do you really want to whatever?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                contents.remove(position);
+                                bookmarkViewAdapter.notifyDataSetChanged();
+                            }})
+                        .setNegativeButton(android.R.string.no, null).show();
             }
         });
 
