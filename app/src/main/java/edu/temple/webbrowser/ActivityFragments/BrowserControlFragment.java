@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
+import edu.temple.webbrowser.BrowserActivity;
 import edu.temple.webbrowser.BrowserViewListAdapter;
 import edu.temple.webbrowser.BrowserViewPagerAdapter;
 import edu.temple.webbrowser.FragmentInterfaces.PageControlFragmentInterface;
@@ -38,6 +39,7 @@ public class BrowserControlFragment extends Fragment {
     FragmentManager fragmentManager;
 
     View view;
+    BrowserActivity parent;
     ImageButton newPageButton;
     ImageButton showBookmarks;
     ImageButton addBookmark;
@@ -54,7 +56,8 @@ public class BrowserControlFragment extends Fragment {
                                                      PageControlFragmentInterface pageControlFragmentInterface,
                                                      BrowserViewPagerAdapter browserViewPagerAdapter,
                                                      BrowserViewListAdapter browserViewListAdapter,
-                                                     FragmentManager fragmentManager) {
+                                                     FragmentManager fragmentManager,
+                                                     BrowserActivity parent) {
         BrowserControlFragment fragment = new BrowserControlFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -64,6 +67,7 @@ public class BrowserControlFragment extends Fragment {
         fragment.setPageControlFragmentInterface(pageControlFragmentInterface);
         fragment.setBrowserViewListAdapter(browserViewListAdapter);
         fragment.setFragmentManager(fragmentManager);
+        fragment.parent = parent;
 
         return fragment;
     }
@@ -127,11 +131,23 @@ public class BrowserControlFragment extends Fragment {
         showBookmarks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bookMarkDisplayFragment bmdf = bookMarkDisplayFragment.newInstance(fragmentManager);
+                bookMarkDisplayFragment bmdf = bookMarkDisplayFragment.newInstance(
+                        fragmentManager, parent, bookmarks
+                );
                 bmdf.pagerFragment = pagerFragment;
-                fragmentManager.beginTransaction().replace(R.id.bookmark_display, bmdf).commit();
-                pagerFragmentInterface.show_bookmark();
+                fragmentManager.beginTransaction().replace(R.id.bookmark_view, bmdf).commit();
+                parent.hideAll();
                 Log.println(Log.ASSERT, "open bookmarks", "Opening bookmarks");
+            }
+        });
+
+        addBookmark = view.findViewById(R.id.save_page_button);
+        addBookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = pagerFragmentInterface.getCurrentURL();
+                Log.println(Log.ASSERT, "--", url);
+                bookmarks.add(url);
             }
         });
 

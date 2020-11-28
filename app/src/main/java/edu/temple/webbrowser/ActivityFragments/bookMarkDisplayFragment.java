@@ -11,7 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 
+import java.util.ArrayList;
+
+import edu.temple.webbrowser.BookmarkViewAdapter;
+import edu.temple.webbrowser.BrowserActivity;
+import edu.temple.webbrowser.BrowserViewListAdapter;
 import edu.temple.webbrowser.R;
 
 
@@ -21,6 +27,11 @@ public class bookMarkDisplayFragment extends Fragment {
     Button closeButton;
     public FragmentManager fragmentManager;
     public PagerFragment pagerFragment;
+    public BrowserActivity browserActivity;
+    public ArrayList<String> bookmarks;
+
+    ListView listView;
+    BookmarkViewAdapter bookmarkViewAdapter;
 
     public View pagerView;
 
@@ -28,11 +39,15 @@ public class bookMarkDisplayFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static bookMarkDisplayFragment newInstance(FragmentManager fragmentManager) {
+    public static bookMarkDisplayFragment newInstance(FragmentManager fragmentManager,
+                                                      BrowserActivity browserActivity,
+                                                      ArrayList<String> bookmarks) {
         bookMarkDisplayFragment fragment = new bookMarkDisplayFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         fragment.fragmentManager = fragmentManager;
+        fragment.browserActivity = browserActivity;
+        fragment.bookmarks = bookmarks;
         return fragment;
     }
 
@@ -51,12 +66,13 @@ public class bookMarkDisplayFragment extends Fragment {
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentManager.beginTransaction().
-                        replace(R.id.bookmark_display, pagerFragment)
-                        .commit();
-
+                browserActivity.showAll();
             }
         });
+        bookmarkViewAdapter = new BookmarkViewAdapter(getContext(), bookmarks);
+        listView = view.findViewById(R.id.bookmark_list);
+        listView.setAdapter(bookmarkViewAdapter);
+
         return view;
     }
 }

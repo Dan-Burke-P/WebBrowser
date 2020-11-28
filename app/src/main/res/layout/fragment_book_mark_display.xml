@@ -16,8 +16,10 @@
             android:layout_height="wrap_content"
             android:text="Close" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ListView
+            android:id="@+id/bookmark_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
     </LinearLayout>
 </LinearLayout>

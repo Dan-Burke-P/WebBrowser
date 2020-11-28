@@ -17,8 +17,7 @@ public class PagerFragmentInterface {
         pagerFragment.setActivePage(i);
     }
 
-    public void show_bookmark(){
-        pagerFragment.show_bookmark();
+    public String getCurrentURL(){
+        return pagerFragment.getCurrentURL();
     }
-
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import edu.temple.webbrowser.ActivityFragments.BrowserControlFragment;
@@ -35,13 +36,15 @@ public class BrowserActivity extends AppCompatActivity {
         PageControlFragmentInterface pageControlFragmentInterface = new PageControlFragmentInterface();
         BrowserControlFragmentInterface browserControlFragmentInterface = new BrowserControlFragmentInterface();
 
-        BrowserViewPagerAdapter browserViewPagerAdapter = new BrowserViewPagerAdapter(
-                getSupportFragmentManager());
-        BrowserViewListAdapter browserViewListAdapter = new BrowserViewListAdapter(this,
-                pagerFragmentInterface,
-                browserControlFragmentInterface);
+
 
         if(savedInstanceState == null){
+
+            BrowserViewPagerAdapter browserViewPagerAdapter = new BrowserViewPagerAdapter(
+                    getSupportFragmentManager());
+            BrowserViewListAdapter browserViewListAdapter = new BrowserViewListAdapter(this,
+                    pagerFragmentInterface,
+                    browserControlFragmentInterface);
 
             pagerFragment = PagerFragment.newInstance(getSupportFragmentManager(),
                     browserViewPagerAdapter,
@@ -53,7 +56,8 @@ public class BrowserActivity extends AppCompatActivity {
                     pageControlFragmentInterface,
                     browserViewPagerAdapter,
                     browserViewListAdapter,
-                    getSupportFragmentManager());
+                    getSupportFragmentManager(),
+                    this);
 
             browserControlFragment.pagerFragment = pagerFragment;
 
@@ -135,5 +139,22 @@ public class BrowserActivity extends AppCompatActivity {
         }
 
 
+
+    }
+
+    public void hideAll(){
+        findViewById(R.id.page_list_container).setVisibility(View.INVISIBLE);
+        findViewById(R.id.Page_render_container).setVisibility(View.INVISIBLE);
+        findViewById(R.id.Browser_control_container).setVisibility(View.INVISIBLE);
+        findViewById(R.id.Page_control_container).setVisibility(View.INVISIBLE);
+        findViewById(R.id.bookmark_view).setVisibility(View.VISIBLE);
+    }
+
+    public void showAll(){
+        findViewById(R.id.page_list_container).setVisibility(View.VISIBLE);
+        findViewById(R.id.Page_render_container).setVisibility(View.VISIBLE);
+        findViewById(R.id.Browser_control_container).setVisibility(View.VISIBLE);
+        findViewById(R.id.Page_control_container).setVisibility(View.VISIBLE);
+        findViewById(R.id.bookmark_view).setVisibility(View.INVISIBLE);
     }
 }

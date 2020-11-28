@@ -26,7 +26,7 @@ public class PagerFragment extends Fragment {
 
     FragmentManager fragmentManager;
     public View view;
-    ViewPager vp;
+    public ViewPager vp;
     BrowserViewPagerAdapter browserViewPagerAdapter;
     PageControlFragmentInterface pageControlFragmentInterface;
 
@@ -90,9 +90,8 @@ public class PagerFragment extends Fragment {
         return view;
     }
 
-    public void show_bookmark(){
-        view.findViewById(R.id.view_pager).setVisibility(View.INVISIBLE);
-        view.findViewById(R.id.bookmark_display).setVisibility(View.VISIBLE);
+    public String getCurrentURL(){
+        return browserViewPagerAdapter.getItem(vp.getCurrentItem()).getUrl();
     }
 
     public void setActivePage(int i){
