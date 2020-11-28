@@ -132,7 +132,7 @@ public class BrowserControlFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 bookMarkDisplayFragment bmdf = bookMarkDisplayFragment.newInstance(
-                        fragmentManager, parent, bookmarks
+                        fragmentManager, parent, bookmarks, bcf
                 );
                 bmdf.pagerFragment = pagerFragment;
                 fragmentManager.beginTransaction().replace(R.id.bookmark_view, bmdf).commit();
@@ -162,6 +162,26 @@ public class BrowserControlFragment extends Fragment {
     public void updateLink(String s){
         notifyDataSetUpdate();
         pageControlFragmentInterface.updateLink();
+    }
+
+    public void openBookmark(String s){
+        // Add a new page
+        final BrowserControlFragment bcf = this;
+        PageViewerFragment pvf = PageViewerFragment.newInstance(bcf);
+        pvf.setRetainInstance(true);
+        openPages.add(pvf);
+        browserViewPagerAdapter.notifyDataSetChanged();
+        browserViewListAdapter.notifyDataSetChanged();
+
+        pagerFragmentInterface.setActivePage(openPages.size()-1);
+
+        pageControlFragmentInterface.setActivePage(pvf);
+        pageControlFragmentInterface.openPage(s);
+
+    }
+
+    public void showRender(){
+        parent.showAll();
     }
 
 }

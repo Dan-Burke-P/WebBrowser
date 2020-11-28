@@ -110,6 +110,16 @@ public class PageControlFragment extends Fragment {
         pageViewerFragment.isActive = true;
     }
 
+    public void openPage(String s){
+        try {
+            pageViewerFragment.loadPage(s);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        url_bar.setText(s);
+        browserControlFragmentInterface.notifyDataSetUpdate();
+    }
+
     public void updateLink(){
         url_bar.setText(pageViewerFragment.getUrl());
     }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import edu.temple.webbrowser.ActivityFragments.BrowserControlFragment;
 import edu.temple.webbrowser.ActivityFragments.PageViewerFragment;
 import edu.temple.webbrowser.FragmentInterfaces.BrowserControlFragmentInterface;
 import edu.temple.webbrowser.FragmentInterfaces.PagerFragmentInterface;
@@ -19,11 +20,14 @@ public class BookmarkViewAdapter extends BaseAdapter {
 
     ArrayList<String> contents;
     LayoutInflater layoutInflater;
+    BrowserControlFragment browserControlFragment;
 
     public BookmarkViewAdapter(Context context,
-                               ArrayList<String> contents){
+                               ArrayList<String> contents,
+                               BrowserControlFragment browserControlFragment){
         layoutInflater = LayoutInflater.from(context);
         this.contents = contents;
+        this.browserControlFragment = browserControlFragment;
     }
 
     @Override
@@ -51,6 +55,8 @@ public class BookmarkViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Log.println(Log.ASSERT, "Display", "Displaying URL: " + urlStr);
+                browserControlFragment.openBookmark(urlStr);
+                browserControlFragment.showRender();
             }
         });
 

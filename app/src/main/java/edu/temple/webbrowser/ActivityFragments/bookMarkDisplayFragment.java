@@ -34,20 +34,22 @@ public class bookMarkDisplayFragment extends Fragment {
     BookmarkViewAdapter bookmarkViewAdapter;
 
     public View pagerView;
-
+    public BrowserControlFragment browserControlFragment;
     public bookMarkDisplayFragment() {
         // Required empty public constructor
     }
 
     public static bookMarkDisplayFragment newInstance(FragmentManager fragmentManager,
                                                       BrowserActivity browserActivity,
-                                                      ArrayList<String> bookmarks) {
+                                                      ArrayList<String> bookmarks,
+                                                      BrowserControlFragment browserControlFragment) {
         bookMarkDisplayFragment fragment = new bookMarkDisplayFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         fragment.fragmentManager = fragmentManager;
         fragment.browserActivity = browserActivity;
         fragment.bookmarks = bookmarks;
+        fragment.browserControlFragment = browserControlFragment;
         return fragment;
     }
 
@@ -69,7 +71,7 @@ public class bookMarkDisplayFragment extends Fragment {
                 browserActivity.showAll();
             }
         });
-        bookmarkViewAdapter = new BookmarkViewAdapter(getContext(), bookmarks);
+        bookmarkViewAdapter = new BookmarkViewAdapter(getContext(), bookmarks, browserControlFragment);
         listView = view.findViewById(R.id.bookmark_list);
         listView.setAdapter(bookmarkViewAdapter);
 
